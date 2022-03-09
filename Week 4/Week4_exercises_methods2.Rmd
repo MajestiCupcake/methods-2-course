@@ -40,28 +40,36 @@ It only changes how the code is presented in the markdown.
 
 $$  \sum x_i >> \sum y_i,   $$
 __answer:__
+The sum of the indexed variable,x, is much greater than the sum of indexed variable, y.
 
 $$ X \in \mathbb{R}^+ $$
 __answer:__
+the variable X belongs to the group of positive real numbers
 
-$$ Y \in \mathbb{I^}^+$$
+$$ Y \in \mathbb{I}^+ $$
 __answer:__
+the variable Y is in the group of positive imaginary numbers
 
 $$ x \in \mathbb{R}^+ \therefore x \notin \mathbb{R}^- $$
 __answer:__
+variable,x, belongs to the positive real numbers, therefore x does not belong to the negative real numbers
 
 $$ y > x \therefore x - y \in \mathbb{R}^-$$
 __answer:__
+y is greater than x, therefore y subtracted from x belongs to negative real numbers
 
 $$ x \in \mathbb{I}^-  y \in \mathbb{I}^+ \therefore x + y  \in \mathbb{I} $$
 
-__answer:__
+__answer:__ 
+x is a negative imaginary number and y is a postive negative number, therefore they are both in the integers numbers
 
 $$ x \varpropto y \because x = c \cdot y  $$
-__answer:__
+__answer:__ 
+x is proportional on y because x is the same as y times a proportional constant.
 
-$$ x \in \mathbb{I} \ and  \ x \notin \mathbb{I}^- \Rightarrow x \in \mathbb{I}^+ $$ 
-__answer:__
+$$x \in \mathbb{I} \ and  \ x \notin \mathbb{I}^- \Rightarrow x \in \mathbb{I}^+ $$ 
+__answer:__ 
+x element of to integers number and x does not to be found in negative imaginary, concluding, x belongs to the positive imaginary numbers.
 
 
 ### Part 2
@@ -72,36 +80,29 @@ and https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
 
 
 ##### lets go
-Let x be the any number of postive integers and y be any negative integer. Therefore the product 
+Let x be the any number of positive integers and y be any negative integer. Therefore the product 
 of x and y must be a negative integer. 
 __answer:__
-$$ $$
-
+$$ x \in \mathbb{I}^+ \ and \ y \in \mathbb{I}^- \therefore x*y 	\in \mathbb{I}^-$$
 
 x is equal to 0 and a exist in the positive real numbers therefore a to the power of x is equal to 1. 
 __answer:__
-$$ $$
+$$ x=0 \  	\exists \  \mathbb{R}^+ \ \therefore \ a^x=1$$
 
-
-The mean of y_hat is equal to the sum of of all y_i divded by the length of y_i which is an approximate of the mean of y.   
+The mean of y_hat is equal to the sum of of all y_i divided by the length of y_i which is an approximate of the mean of y.   
 __answer:__
-$$ $$
-
+$$ \widehat{\bar{y}}= \sum{\frac{y_i}{|y_1|}}  \approx \overline{y}  $$
 
 x is proportional to y iff (if and only if) x = y * c
 __answer:__
-$$ $$
-
-
+$$ x \propto y \iff x=y*c$$
 
 **Make up your own example.**
 Make up a few of your own examples where you generate both the plain English and the math notation. 
 
 
-
 We will walk through some of these examples together. Continue with exercises from the book. 
 # Nested functions
-
 
 # Sets
 let x be a set {0,2,3,10,8,4,11}
@@ -111,17 +112,21 @@ Find the following set z for each expression.
 
   1)
 $$ z = x \cup y  $$
+
   2)
 $$ z =x \cap y $$
 
   3)
 $$z = x \setminus y $$
 
+
   4) 
-$$max(x) $$
+$$ max(x) $$
+
+
 
   5)
-$$ max(x \cap y)$$
+$$ max(x \cap y) $$
 
 
 # Exercises from the book. 
@@ -129,14 +134,35 @@ These exercises is to refresh some math fundamentals from high-school which will
 
 
 ### 1.1 
-
+Simplify the following expressions as much as possible:
+(−x4y2)2 9(30) (2a2)(4a4)
+x4
+x3 (−2)7−4
+
+1
+27b3
+1/3
+y7y6y5y4 2a/7b
+11b/5a
+(z2)4
 
 ### 1.4 
+The relationship between Fahrenheit and Centigrade can be expressed
+as 5f − 9c = 160. Show that this is a linear function by putting it in
+y = mx + b format with c = y. Graph the line indicating slope and
+intercept.
 
 ### 1.6
 
+Solve the following inequalities so that the variable is the only term
+on the left-hand side:
+x − 3 < 2x+ 15
+11 − 4/3t > 3 
+5/6y + 3(y − 1) ≤ 11/6 (1 − y) + 2y
 
 ### 1.9
+ ! [Alt text](/Skærmbillede 2022-02-23 140005.png)
+ 
 
 
 ### 1.18 (hard)

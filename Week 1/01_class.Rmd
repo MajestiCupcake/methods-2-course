@@ -1,0 +1,99 @@
+# Class 01
+### Setup chunk
+```{r}
+setwd('.')
+pacman::p_load(ggplot2,tidyverse)
+```
+
+## Exercises from ROS page 32
+### 1.2 
+**Sketching a regression model and data**: Figure 1.1b shows data corresponding to the fitted line
+*y = 46.3+3.0x* with residual standard deviation 3.9, and values of *x* ranging roughly from 0 to
+4%.
+#### (a)
+Sketch hypothetical data with the same range of *x* but corresponding to the line y = 30 + 10x
+with residual standard deviation 3.9.
+```{r}
+#linear regression: y=b0+b1*x+error
+#simulate x
+x1 <- rnorm(1000,2,0.6)
+hist(x1)
+
+#simulate error
+e1 <- rnorm(1000,0,3.9) #error trending around 0 with a sd of 3.9
+
+#formular
+y1 <- 30+10*x1+e1
+plot(y1)
+```
+
+#### (b)
+Sketch hypothetical data with the same range of *x* but corresponding to the line y = 30 + 10x
+with residual standard deviation 10.
+```{r}
+#linear regression: y=b0+b1*x+error
+#simulate x
+x1 <- rnorm(1000,2,0.6) #same x
+hist(x1)
+
+#simulate error
+e2 <- rnorm(1000,0,10)
+
+#formular
+y2 <- 30+10*x1+e2
+plot(y2)
+```
+
+## Applying learned skills on your selected dataset:  (IDEA)
+```{r prep data}
+df <- read.csv('fetal_health.csv')
+view(df)
+ls(df)
+df <-  na.omit(df)
+```
+ [1] discrete 15-87           = "abnormal_short_term_variability"                       
+ [2] continuous 0-0.0019      = "accelerations"                                         
+ [3] discrete                 = "baseline.value"                                       
+ [4] discrete 1-3             = "fetal_health"                                          
+ [5] continuous 0-0.47..      = "fetal_movement"                                        
+ [6]                          = "histogram_max"                                         
+ [7] discrete 73-182          = "histogram_mean"                                        
+ [8] discrete 76-186          = "histogram_median"                                      
+ [9]                          = "histogram_min"                                         
+[10]                          = "histogram_mode"                                        
+[11]                          = "histogram_number_of_peaks"                             
+[12]                          =  "histogram_number_of_zeroes"                            
+[13]                          = "histogram_tendency"                                    
+[14]                          = "histogram_variance"                                    
+[15] discrete 0-180           = "histogram_width"                                       
+[16] continuous 0-0.015       = "light_decelerations"                                   
+[17] continuous 0-50.7        = "mean_value_of_long_term_variability"                   
+[18] continuous 2.0-7.0       = "mean_value_of_short_term_variability"                  
+[19] continuouS 0-91          = "percentage_of_time_with_abnormal_long_term_variability"
+[20] discrete 0-0.005         = "prolongued_decelerations"                              
+[21] binary 0.001 or 0(0.000) = "severe_decelerations"                              
+[22] continuous 0-0.015       = "uterine_contractions" 
+### Use a descriptive statistics and visual investigation to give a preliminary look into the data. (Use some of the things from chapter 2) 
+```{r}
+
+```
+
+### Create several models and discuss what each model reliably can infer anything about. Mixed effect, which random effects? Logistic regression? Interaction effects? Should we dummy code some variables?  
+### Do model comparison.
+### Test the model's prediction capability.
+### Write up a short summary of your model.  
+
+### 1.3 - *could be a thing to do* 
+Goals of regression: Download some data on a topic of interest to you. Without graphing the data
+or performing any statistical analysis, discuss how you might use these data to do the following
+things:
+##### (a)
+Fit a regression to estimate a relationship of interest.
+##### (b)
+Use regression to adjust for differences between treatment and control groups.
+##### (c)
+Use a regression to make predictions.
+
+### Do Exercise 2.3 in the book (Hard) hints. ( Summarise_at() , str_sub(), pivot_longer() )
+
+### Upload the .Rmd to your GitHub. 

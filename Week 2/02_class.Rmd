@@ -1,0 +1,197 @@
+---
+title: "22 class"
+author: "Sara"
+date: "9/2/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd('.')
+library(tidyverse)
+```
+
+# Exercises:
+## 3.1
+Weighted averages: A survey is conducted in a certain city regarding support for increased property taxes to fund schools. In this survey, higher taxes are supported by 50% of respondents aged 18–29, 60% of respondents aged 30–44, 40% of respondents aged 45–64, and 30% of respondents aged 65 and up. Assume there is no nonresponse.
+Suppose the sample includes 200 respondents aged 18–29, 250 aged 30–44, 300 aged 45–64,
+and 250 aged 65+. Use the weighted average formula to compute the proportion of respondents in the sample who support higher taxes.
+```{r}
+p <- c(0.5,0.6,0.4,0.3)
+n <- c(200,250,300,250)
+weighted.mean(p,n)
+```
+### Answer
+247 respondens supported higher taxes equal to 44,5% of the respondens
+
+
+## 3.3
+Probability distributions: Using R, graph probability densities for the normal distribution,
+plotting several different curves corresponding to different choices of mean and standard
+deviation parameters.
+```{r}
+mean_sim <- 10
+std_sim <- 5
+lcb <- ((mean_sim - (3 * std_sim)) - 5)
+ucb <- (((2 * mean_sim) + (3 * (2 * std_sim))) + 5)
+
+u <- seq(from = lcb,
+         to = ucb,
+         length.out = 1e+5)
+v1 <- dnorm(x = u,
+            mean = mean_sim,
+            sd = std_sim)
+v2 <- dnorm(x = u,
+            mean = (2 * mean_sim),
+            sd = (2 * std_sim))
+v3 <- dnorm(x = u,
+            mean = (1/3),
+            sd = (100))
+
+matplot(x = u,
+        y = cbind(v1, v2, v3),
+        type = "l",
+        lty = 1,
+        col = c("red", "blue","green"),
+        xlab = "values",
+        ylab = "densities",
+        main = "base Solution 1")
+legend(x = "topright",
+       legend = paste("Distbn.", 1:3),
+       col = c("red", "blue","green"),
+       lty = 1)
+```
+
+
+## 3.4
+Probability distributions: Using a bar plot in R, graph the Poisson distribution with parameter
+3.5
+```{r}
+success <- 0:100
+#x <- seq(0,15,by=1)
+d <- dpois(success,lambda = 3.5)
+barplot(d)
+```
+
+
+
+## 3.5
+Probability distributions: Using a bar plot in R, graph the binomial distribution with n = 20 and
+p = 0.3.
+```{r}
+b <- rbinom(20,243,0.3)
+barplot(b)
+```
+
+
+
+## 3.6
+Linear transformations: A test is graded from 0 to 50, with an average score of 35 and a standard
+deviation of 10. For comparison to other tests, it would be convenient to rescale to a mean of
+100 and standard deviation of 15.
+(a) Labeling the original test scores as x and the desired rescaled test score as y, come up with a
+linear transformation, that is, values of a and b so that the rescaled scores y = ax+b¸ have a mean of 100 and a standard deviation of 15.
+(b) What is the range of possible values of this rescaled score y?
+(c) Plot the line showing y vs. x.
+```{r}
+#a
+x <- rnorm(1000,35,10)
+y <- 100+(x-35)*15/10 #standardized
+hist(y)
+
+#b
+range(y)
+#52.62605-145.03648
+
+#c
+plot(x,y,type='l',col='peachpuff2')
+
+```
+
+
+## 4.1
+Comparison of proportions: A randomized experiment is performed within a survey. 1000
+people are contacted. Half the people contacted are promised a $5 incentive to participate, and
+half are not promised an incentive. The result is a 50% response rate among the treated group
+and 40% response rate among the control group. Give an estimate and standard error of the
+average treatment effect.
+```{r}
+
+```
+
+## 4.2
+Choosing sample size: You are designing a survey to estimate the gender gap: the difference in
+support for a candidate among men and women. Assuming the respondents are a simple random
+sample of the voting population, how many people do you need to poll so that the standard error
+is less than 5 percentage points?
+```{r}
+
+```
+
+## 4.3
+Comparison of proportions: You want to gather data to determine which of two students is a
+better basketball shooter. One of them shoots with 30% accuracy and the other is a 40% shooter.
+Each student takes 20 shots and you then compare their shooting percentages. What is the
+probability that the better shooter makes more shots in this small experiment?
+```{r}
+
+```
+
+## 4.4
+Designing an experiment: You want to gather data to determine which of two students is a
+better basketball shooter. You plan to have each student take # shots and then compare their
+shooting percentages. Roughly how large does # have to be for you to have a good chance of
+distinguishing a 30% shooter from a 40% shooter?
+```{r}
+
+```
+
+## 4.5
+Sampling distribution: Download a data file on a topic of interest to you. Read the file into R
+and order the data by one of the variables.
+(a) Use the sample function in R to draw a simple random sample of size 20 from this population.
+What is the average value of the variable of interest in your sample?
+(b) Repeat this exercise several times to get a sense of the sampling distribution of the sample
+mean for this example.
+```{r}
+
+```
+
+# Optional
+## 3.10
+Working through your own example: Continuing the example from Exercises 1.10 and 2.10, consider a deterministic model on the linear or logarithmic scale that would arise in this topic.
+Graph the model and discuss its relevance to your problem.
+```{r}
+
+```
+
+## 4.11
+Working through your own example: Continuing the example from the final exercises of the earlier chapters, perform some basic comparisons, confidence intervals, and hypothesis tests and discuss the relevance of these to your substantive questions of interest.
+```{r}
+
+```
+
+# Challange
+## 3.2
+Weighted averages: Continuing the previous exercise, suppose you would like to estimate the proportion of all adults in the population who support higher taxes, so you take a weighted average as in Section 3.1. Give a set of weights for the four age categories so that the estimated proportion who support higher taxes for all adults in the city is 40%.
+```{r}
+
+```
+
+## 3.8
+Correlated random variables: Suppose that the heights of husbands and wives have a correlation
+of 0.3, husbands’ heights have a distribution with mean 69.1 and standard deviation 2.9 inches,
+and wives’ heights have mean 63.7 and standard deviation 2.7 inches. Let G and ~ be the heights
+of a married couple chosen at random. What are the mean and standard deviation of the average
+height, ¹G ¸ ~º2?
+```{r}
+
+```
+
+## 4.7
+Inference from a proportion with ~ = 0: Out of a random sample of 50 Americans, zero report
+having ever held political office. From this information, give a 95% confidence interval for the
+proportion of Americans who have ever held political office.
+```{r}
+
+```

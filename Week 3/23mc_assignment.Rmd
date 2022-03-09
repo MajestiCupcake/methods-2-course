@@ -1,0 +1,368 @@
+---
+title: "Week3"
+author: "Sigurd Fyhn Sørensen"
+date: "2/12/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+pacman::p_load(tidyverse)
+```
+
+# Week 3
+Hello.... It is me.... Sigurd. :) I unfortunately cannot be with you this week. So I'll spare you for boring online class and instead created a super duper markdown file which will help you with the tons of exercises you get to do this week. 
+
+I'll walk through a couple of code examples of how can create good function() with lots of different conditional statements. We will also look into the power of sampling and especially concatinating several nested sampling statements together. 
+
+
+## Recap.
+Last start out with a quick recap of some of the functions and idea from last lecture. 
+
+In your own words describe the two different distributions and what they represent and how they differ from one another. 
+```{r}
+x1 <- rbinom(2e4, size = 10, prob = 1/6)
+```
+randomized binomial distributions with a sample size of 10 and a probability of 60% of it being x1, this is run 2000 times
+```{r}
+x2 <- dbinom(0:10, size = 10 , prob = 1/6)
+plot(x = 0:10, y = x2, type = "l")
+```
+dbinom is the density whereas rbinom generates random deviates. This distributions is discrete as it goes from 0:10.
+
+### Difference between two distributions. 
+treatment A has a E(X) = 10 with sd = 1.5 (**sigurds means se**)
+treatment B has a E(X) = 5 with sd = 2 (**sigurds means se**)
+The two treatments are independent. 
+
+estimate the difference in effect between the two distributions.
+  1. Estimate the difference as a point estimate.
+  2. Estimate the uncertainty surrounding the point estimate difference.
+
+```{r}
+#1
+tA(E(X)) =10
+tB(E(X)) =5
+tA(E(X)) - tB(E(x)) =5
+delta <- 5
+
+#2
+#to get the uncertainty do sigma_2^2+sigma_2^2, and then t(df)=pointestimate/uncertainty
+se_1 <- 1.5
+se_2 <- 2
+se_delta <- sqrt((se_1^2)+(se_2^2))
+t <- delta/se_delta
+```
+#### Answer
+1. point estimate is 5.
+2. 2.5 is the uncertainty, and a t(df)=2, do not know if it is significant, because no degrees of freedome is given
+
+*Bonus: (hard)*
+How would the formula for the uncertainty estimate differ if we said that treatment A and B has a correlation coefficient of 0.6? 
+  1. Describe in your own words how it would affect the difference between the two estimates. 
+  2. Use the formula for differences between depended variables to calculate a new estimate of uncertainity. 
+
+# New stuff for today. 
+## Some functions: 
+### Sample
+If I have an underlying idea about how many people eat the most candy on friday or saturday. We can use that to simulate the distribtution. The sample function allows the outcome of sampling to be strings. 
+
+```{r}
+sample(c("friday","saturday"), size = 10, replace = TRUE, prob = c(0.55,0.45))
+```
+Replace = TRUE is required if you want a list with occurences. Try and change it to false and see what happens. 
+- did not work
+
+first element C("friday", "saturday") is our possible outcomes. and prob = c(0.8, 0.7) is their corresponding probabilities. 
+
+```{r}
+#add sunday as another option and think add the probability of sunday to the probability vector. 
+sample(c('friday','saturday','sunday'),size=20,replace=T,prob=c(0.5,0.45,0.05))
+
+```
+
+### Seq()
+A way to generate a vector of number bounded by the "from" and "to" statement. While "by" indicates the size of the steps. 
+```{r}
+#generate the numbers from 2 to 100 with steps of whole integers (1)
+seq(from = 2, to = 100, by = 1)
+```
+```{r}
+seq(from = 100, to = 150 , by = 0.4)
+```
+
+### rep()
+Used if we wanna repeat something multiple times. 
+```{r}
+#repeat the number 1 one hundred times. 
+rep(1, 100)
+```
+```{r}
+rep(c(1,2), 100)
+```
+Now it repeats the vector c(1,2) 100 times. So the total outcome is 200 numbers in a vector. 
+
+It doesn't have to be integers it can also repeat operations. Look at the code below and try and figure out the logic behind the outcome. 
+```{r}
+lul <- c(1,2,3)
+
+rep(sum(lul)/lul, 100)
+```
+- takes 6 =sum(lul) and divides it by the colon number
+
+### Loop()
+If you wanna change something in each iteration of the repeat then loops() is a good intuitive starting points. R is super good at working with vectorized data and operations but loops is sometimes easier to understand but also computationally more expensive. 
+
+```{r}
+x <- seq(from = 1 , to = 50, by = 0.5)
+
+for (i in 1:length(x)){
+  print(sum(x)/sum(x[1:i]))
+}
+```
+
+# While loop
+Here is an example of how to use while loops and the console as an input device.
+
+Try and run the entire chunk and the specify in the console how many numbers of the fibonacci chain you want. 
+```{r}
+# take input from the user
+nterms = as.integer(readline(prompt="How many terms? "))
+# first two terms
+n1 = 0
+n2 = 1
+count = 2
+# check if the number of terms is valid
+if(nterms <= 0) {
+print("Please enter a positive integer")
+} else {
+if(nterms == 1) {
+print("Fibonacci sequence:")
+print(n1)
+} else {
+print("Fibonacci sequence:")
+print(n1)
+print(n2)
+while(count < nterms) {
+nth = n1 + n2
+print(nth)
+# update values
+n1 = n2
+n2 = nth
+count = count + 1
+}
+}
+}
+```
+The number you type in the console in saved in "nterms". Walk through the line of codes and figure out how nterms is as conditionally statements. 
+
+Question1: What happens if you get a negative number. (which line of code is responsible)
+- the line where n<=0, 'please write a positive interger'
+
+Question2: What happens if you type a positive number (which lines starts the sequence with the first two numbers) 
+- if nterms==1, then it only runs once, else it runs until the end of number
+
+Question3: Which line of code stops the sequence when the desired n-terms is reached. 
+- while count is smaller than nterms, it runs
+
+Question4: Make the while loop print out nterms + 1 expression of the fibnonacci sequence. 
+- *do not know how to do this*
+
+### Function 
+Functions an easy way to reuse code and repeat a procedure many times. 
+
+Key things to remember: 
+ 1. All variables made within a function is local variables which means you cannot use them outside of the function in the "global environment". 
+ 2. it is good code ethics to specify a return() statement which tells us what the final output should be of our function. If nothing is specified it will return the last statement calculated. 
+ 3. You can make functions with and without variables. f(x) is a function of x. f() is a function of nothing but it will still do the computations that you have specified. can be used to avoid a cluster of variables in the global environment.
+ 4. Be explicit in your functions variable names. 
+ 
+Make a random function that returns the largest sum of two numbers.  
+```{r}
+test_function <- function(n1,n2,n3){
+  if (n1 + n2 > n3){
+    largest_sum <- paste("n1+ n2 =", n1 + n2)
+  }
+  if (n2 + n3 > n1){
+    largest_sum <- paste("n2+ n3 =", n2 + n3)
+  }
+  if (n1 + n3 > n2){
+    largest_sum <- paste("n1+ n3 =", n1 + n3)
+    
+    
+  }
+  return(largest_sum)
+}
+
+test_function(2,5,9)
+```
+__Your try__: Try and make a fun function with a least some conditional statements. 
+```{r}
+x=as.character(readline(prompt='Is Sigurd funny?'))
+  if(x!='yes'){
+    print('Try again, three non capital letters')
+  } else {
+  if(x=='yes'){
+    print('YOU ARE CORRECT')
+  }
+  }
+
+```
+
+## Sampling 1 of it's usage.  
+A hypothetical study has shown that left handed has a 60% chance of having an IQ above 160while Right-handed have a probability of 15%. About 10 % of the world are left handed. 
+
+What is the overall probability of having an Iq over 160 across left and right handed
+```{r}
+#We can use the weighted average 
+0.6*0.10 + 0.15*0.9
+```
+This is a point estimate but there is of course some uncertainty which could be calculated using theSD and SE for binomial data which we learned last time. 
+
+But we can also simulate it. First we simulate 1 sample. 
+```{r}
+hand_func <- function(n){
+  handedness <- sample(c("left_handed", "right_handed"), size = n, replace = TRUE, prob = c(0.1, 0.9))
+  iq_160 <- rep(NA, n)
+  for (i in 1:n){
+    if (handedness[i] == "left_handed"){
+      iq_160[i] <- rbinom(1, size= 1, prob = 0.6)
+    }
+    if (handedness[i] == "right_handed"){
+      iq_160[i] <- rbinom(1,size = 1, prob = .15)
+    }
+  }
+  return(iq_160)
+}
+
+iq_160 <- hand_func(2e4)
+
+sum(iq_160 == 1)/length(iq_160)
+
+```
+If we repeated this procedure many times we could approximate the sampling distribution of our expected value which we can use to say something about the uncertainty of our point estimates.
+
+```{r}
+samp_dist_of_samp_means <- c()
+for (i in 1:1000){
+  samp_dist_of_samp_means[i] <- mean(hand_func(1e3))
+}
+hist(samp_dist_of_samp_means)
+```
+This tool is very useful not only for checking your own models but also a way to check other peoples reported results. You can use their parameter values to simulate data and repeat the process of simulation data to estimate the sampling distribution. 
+
+# Exercises in the book. 
+If you haven't finished the exercises from last time do so first. The exercises in chapter 5 builds on the knowledge gained from chapter 3 and 4. 
+
+__Following Exercises in Chapter 5:__
+5.1, 5.3, 5.4, 5.5 5.8, 5.9, 5.11, 5.12, 5.13
+*5.5* **Distribution of averages and differences**: The heights of men in the United States are approximately normally distributed with mean 69.1 inches and standard deviation 2.9 inches. The heights of women are approximately normally distributed with mean 63.7 inches and standard deviation 2.7 inches. Let **x** be the average height of 100 randomly sampled men, and **y** be the average height of 100 randomly sampled women. In R, create 1000 simulations of **x - y** and plot their histogram.
+Using the simulations, compute the mean and standard deviation of the distribution of **x - y** and compare to their exact values.
+```{r}
+#from the book p. 72
+n_sims <- 1000
+avg_height <- rep(NA,n_sims)
+for(s in 1:n_sims){
+  N <- 100
+  male <- rbinom(N,1,0.48)
+  height <- ifelse(male==1,rnorm(N,69.1,2.9),rnorm(N,63.7,2.7))
+  avg_height <- mean(height)
+}
+print(avg_height)
+
+#assignment
+x <- rnorm(N,69.1,2.9)                             #making male distribution
+y <- rnorm(N,63.7,2.7)                             #making female distribution
+x_y <- x-y                                         #making a variable for the delta in height
+x_y_sim <- replicate(1000,x_y)                     #replicating the procedure
+hist(x_y_sim)                                      #making a histogram
+sd_point <- sqrt((2.9^2)+(2.7^2))                  #calculating the sd for point estimate
+d_point <- 69.1-63.7                               #calculating point difference
+label <- c('male','female','delta','point')        #making a table with the mean and sd
+mean <- c(69.1,63.7,mean(x_y_sim),d_point)         # -||-
+sd <- c(2.9,2.7,sd(x_y_sim),sd_point)              # -||-
+tibble(label,mean,sd)                              # -||-
+```
+***Interpretation***
+from the simulated difference in height the estimate predicts a smaller difference in height with a lower standard deviation (although this does not tell us much, since the standard deviation does not take sample size into account) than the point (exact) estimate of the difference in height.
+
+
+*5.12* Randomization: Write a function in R to assign **n** items to treatment and control conditions under the following assignment procedures:
+• Independent random assignment. Each item is independently randomly assigned to treatment or control with probabilities **p** and **1-p**.
+• Complete random assignment. The **n** items are randomly partitioned into **np** items that receive the treatment, and the other **n(1-p)** are assigned to control.
+• Matched pairs. This is the simplest version of block random assignment. The **n** items come sequentially in **n/2** pairs. Within each pair, one item is randomly chosen for treatment and one for control. In other words, **p** = 0.5.
+Write one R function, not three. Your function should have three inputs: n, p, and a code for which procedure to use. The output should be a vector of treatment assignments (1’s and 0’s).
+Hint: Your function likely won’t work for all combinations of n and p. If it doesn’t, write it so that it throws an error and alerts the user.
+```{r}
+random <- function(){
+  n=as.integer(readline(prompt='How many items should be randomly partitioned?'))
+  procedure=as.character(readline(prompt='What procedure would you like to use? IR Independent random, CR complete random or MP matched pairs for assigning to groups'))
+  #if (procedure!=MP){
+    p=as.integer(readline(prompt='At what probability should the items be sorted?'))
+    #if(n==10 && p==5 && procedure==MP){
+     # print('combination of items and probabilities is invalid')
+     # } 
+ # }
+ # else {
+    ncol <- seq(from=1,to=n,by=1)
+    group <- 0:1
+    df <- data.frame(ncol)
+    if(procedure=='IR'){
+      df$group <- sample(group,n,replace=T,prob=c(p,1-p))
+      }
+    else{
+      if(procedure=='CR'){
+        df$group <- sample(group,n,replace=T,prob=c(np,n(1-p)))
+      }
+      if(procedure=='MP'){
+        df$group <- sample(group,n,replace=T,prob=c(0.5,0.5))
+      }
+    }
+  }
+#}
+
+
+random()
+
+## From class
+pacman::p_load(tidyverse)
+Block_ran <- function(n,p,type){
+  if(type==1){
+    dist <- rbinom(n,size=1,prob=p)
+  }
+  if(type==2){
+    dist <- sample(c(0,1),size=n,replace=T,prob=c((n*1-p),n*p))
+  }
+  if(type==3){
+    x <- seq(0,n,by=1)
+    dist <- ifelse((x%%2)==0,0,1)
+}
+else{
+  warning("Type should be a number between 1:3")
+}
+  return(dist)
+}
+
+Block_ran(n=500,p=0.5,type=1)
+
+```
+
+```{r tester}
+randomt <- function(n,p,procedure){
+  if(procedure==IR){
+    ncol <- seq(from=1,to=n,by=1)
+    group <- 0:1
+    df <- data.frame(ncol)
+    df$group <- sample(group,n,replace=T,prob=c(p,1-p))
+    
+  }
+}
+randomt(100,0.6,IR)
+
+procedure=as.character(readline(prompt='What procedure would you like to use? *IR* Independent random, *CR* complete randome or *MP* matched pairs for assigning to groups'))
+```
+
+5.2 (semi-hard), 5.6 (hard)
