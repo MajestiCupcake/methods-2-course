@@ -1,0 +1,142 @@
+---
+title: "Methods 2 -- Portfolio Assignment 1"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+- _Type:_ Group assignment
+- _Due:_ 13 March 2022, 23:59
+
+---
+
+Please submit your answers on GitHub Classroom. The best way to give your answers is in a LaTeX or R Markdown file, but you can also create a PDF in some other way.
+
+---
+
+1) Given the vectors $\vec{u} = (1,1,1)$, $\vec{v} = (2,3,1)$, and $\vec{w} = (-1,-1,2)$, compute the following products:
+    a) $\vec{u} \cdot \vec{v}$
+    b) $\vec{u} \cdot \vec{w}$
+    c) $\vec{v} \cdot \vec{w}$
+    d) $\vec{u} \times \vec{v}$
+    e) $\vec{u} \times \vec{w}$
+    f) $\vec{v} \times \vec{w}$
+
+```{r}
+pacman::p_load(pracma)
+u <- c(1,1,1)
+v <- c(2,3,1)
+w <- c(-1,-1,2)
+
+#a)
+u%*%v
+#6
+
+#b)
+u%*%w
+#0
+
+#c)
+v%*%w
+#-3
+
+#d)
+cross(u,v)
+#-2 1 1
+
+#e)
+cross(u,w)
+# 3 -3 0
+
+#f)
+cross(v,w)
+#7 -5 1
+```
+
+
+---
+
+2) Vectors are _orthogonal_ (or _perpendicular_) when their dot product is zero: $\vec{x} \perp \vec{y} \Longleftrightarrow \vec{x} \cdot \vec{y} = 0$. A _unit vector_ is a vector with norm 1: $\Vert \vec{x} \Vert = 1$.
+    a) Find a unit vector that is perpendicular to both $\vec{u} = (1,0,1)$ and $\vec{v} = (1,2,0)$.
+    b) Find a vector that is orthogonal both to $\vec{u}_1 = (1,0,1)$ and $\vec{u}_2 = (1,3,0)$, and whose dot product with the vector $\vec{v} = (1,1,0)$ is equal to 8.
+    
+```{r}
+#a)
+x <- c(1,0,1)
+y <- c(1,2,0)
+x%*%y
+cross(x,y) #finding a possible orothaganol vector
+d <- c(-2,1,2)
+d%*%y #checking dot produkt
+x%*%d #checking dot product
+#d is orthoganol on both vectors, but has a length of 3
+#therefor the vector is -2/3,1/3,2/3
+
+
+#b) 
+a <- c(1,0,1)
+b <- c(1,3,0)
+c <- c(1,1,0)
+cross(a,b)
+d <- c(-3,1,3) #vector
+a%*%d #orthoganal check
+b%*%d #orthoganol check
+c%*%d #result -2
+d2 <- d*-4 #The final vector d(12,-4,-12)
+c%*%d2 #result 8
+```
+
+---
+
+3) Prove the geometric formula for the dot product $\vec{x} \cdot \vec{y} = \Vert \vec{x} \Vert \Vert \vec{y} \Vert \cos \varphi$, where $\varphi$ is the angle between the vectors $\vec{x}$ and $\vec{y}$.
+
+Using the laws of Cosines, the properties of the dotproduct the following relation between $\vec{x}$ and $\vec{y}$ with an angle of $\varphi$ is proved:
+$$
+\vec{x} \cdot \vec{y} = \Vert \vec{x} \Vert \Vert \vec{y} \Vert \cos \varphi
+\\
+Dotproduct\ follows:\ \vec{a}\cdot\vec{a}=\Vert\vec{a}\Vert
+\\
+Cosinerelation: a^2=b^2 +c^2-2*bc\cos\varphi
+\\
+$$
+The connecting vector has the length of the difference between the norm of two vectors $ \Vert\vec{x}\Vert$ and  $\Vert\vec{y}\Vert$ is $\Vert\vec{x}-\vec{y}\Vert$. 
+$$
+\\
+\therefore (\Vert\vec{x}-\vec{y}\Vert)^2=\Vert\vec{x}\Vert^2  +\Vert\vec{y}\Vert^2-2*\Vert\vec{x}\Vert\Vert\vec{y}\Vert\cos\varphi \ \ (1)
+\\
+\implies (\Vert \vec{x}-\vec{y}\Vert)^2=(\vec{x}-\vec{y})(\vec{x}-\vec{y})
+\\
+=\vec{x} \cdot \vec{x} + \vec{y} \cdot \vec{y} -2 (\vec{x}\cdot \vec{y})
+\\
+=\Vert \vec{x}\Vert^2+\Vert\vec{y}\Vert^2 -2 (\vec{x} \vec{y}) \ \ (2)
+\\
+$$
+Using  (2)  in (1) we get:
+$$
+\\
+\Vert \vec{x}\Vert^2+\Vert\vec{y}\Vert^2 -2 (\vec{x} \vec{y}) =\Vert\vec{x}\Vert^2 +\Vert\vec{y}\Vert^2-2*\Vert\vec{x}\Vert\Vert\vec{y}\Vert\cos\varphi
+\\
+\implies -2 (\vec{x} \vec{y})=-2*\Vert\vec{x}\Vert\Vert\vec{y}\Vert\cos\varphi
+\\
+\implies \vec{x} \vec{y}=\Vert\vec{x}\Vert\Vert\vec{y}\Vert\cos\varphi
+\\
+\implies \vec{x} \cdot\vec{y}=\Vert\vec{x}\Vert\Vert\vec{y}\Vert\cos\varphi \blacksquare
+\\
+
+$$
+---
+
+4) For the matrix
+$$
+X = \begin{bmatrix}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 1
+\end{bmatrix},
+$$
+calculate $X^n$ for $n = 2, 3,4, 5$. Write a rule for calculating higher values of $n$.
+
+```{r}
+X <- 
+```
+

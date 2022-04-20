@@ -1,0 +1,72 @@
+---
+title: "Methods 2 -- Portfolio Assignment 2"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+  header-includes:
+   - \usepackage{bbm}
+---
+
+- *Type:* Individual assignment
+- *Due:* 10 April 2022, 23:59
+- *Student:* Sara K. Kristensen
+
+## 1. Square root function
+
+Along the lines of section 6.4.2 (p. 247ff) in Gill’s book, write an _R_ function that calculates the square root of a given positive number. Your solution should contain:
+
+a) A quick introduction into what the function does and why it works
+b) A discussion of the choices you made (e.g., starting point of the algorithm)
+c) A range of examples
+d) A discussion of what happens when the program is applied to negative numbers
+
+### Answer
+a) Following Newton-Raphson method the squareroot(x) function has three variables x, what ever number one wants squared, a, start guess of the root, and b, x saved in a new variable. As long as the absolute difference between a and b is bigger than a set margin of answer, because numbers that cannot be written as a fraction has no end to their square root, the function will overwrite a and b until the margin is reached. a is overwritten to the sum of a and b divided by 2, because if a is equal to b, when the equation would give a. b is overwritten to the fraction of x over a, because when a number is divided by its square root it gives the root, in this case a. Therefor b will at one point meet the criteria of being a, in this case with 1e-7 reach of a.
+
+```{r stack}
+squareroot <- function(x){
+  a <- 0
+  b <- x
+  ErrorMargin <- 0.0000001
+  if (x<0)
+   return ("I only like smiling numbers, choose a positive one!")
+  while (abs(a-b)>ErrorMargin){ 
+    a <- (a+b)/2
+    b <- x/a 
+  }
+  return(a)
+}
+```
+b) the starting point of the algorithm is 0, because it will then can calculate the square root of any number above 0 (it will still give a number for 0 because of the error margin). The if-statement is for returning a warning message, because the square root of negative numbers does not exist in integers. The while-statement, runs until the difference for a and b hits the error margin of 1e-7 (the desired amount of decimals for the answer).
+c) Examples
+```{r}
+squareroot(16)
+squareroot(-12)
+squareroot(1.2)
+```
+
+d) there does not exist a real solution for negative integers (excluding the imaginary numbers), because the solution would neither be negative nor positive. 
+
+## 2. Power series derivatives
+
+The power series definitions ($:=$ means "is defined as") of the exponential, sine, and cosine functions are
+
+$$\begin{align*}
+    \exp(x) &:= \sum_{n=0}^\infty \frac{x^n}{n!},\\[8pt]  
+    \sin(x) &:= \sum_{n=0}^\infty \frac{(-1)^nx^{2n+1}}{(2n+1)!}, \\[8pt]
+    \cos(x) &:= \sum_{n=0}^\infty \frac{(-1)^nx^{2n}}{(2n)!}.
+\end{align*}$$
+
+Using these definitions, show that
+
+$$\newcommand{\dx}{\:\mathrm{d}x}
+\newcommand{\md}{\mathrm{d}}
+\newcommand{\dfdx}{\frac{\md}{\dx}}
+\begin{align*}
+    \dfdx \exp(x) &= \exp(x), \\[8pt]
+    \dfdx \sin(x) &= \cos(x), \\[8pt]
+    \dfdx \cos(x) &= -\sin(x).
+\end{align*}$$ 
+
+You can either [use LaTeX](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes) or include photos of your (nicely) handwritten equations in the notebook. In any case, write down all intermediate steps.
